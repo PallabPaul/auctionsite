@@ -1,3 +1,3 @@
 # auctionsite
 
-http://ec2-3-94-114-103.compute-1.amazonaws.com:8080/
+http://ec2-3-87-213-87.compute-1.amazonaws.com:8080/
