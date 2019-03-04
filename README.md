@@ -5,6 +5,4 @@ http://ec2-3-87-213-87.compute-1.amazonaws.com:8080/
 
 login: 
 
---fix issue with different jvm versions
-
 http://ec2-3-87-213-87.compute-1.amazonaws.com:8080/login_group30/
