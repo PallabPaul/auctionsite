@@ -21,13 +21,13 @@
 		Statement stmt = con.createStatement();
 
 		//Get parameters from the HTML form at the HelloWorld.jsp
-		String newUser = request.getParameter("username");
-		String newPass = request.getParameter("password");
+		String newUser = request.getParameter("crusername");
+		String newPass = request.getParameter("crpassword");
 
 
 		//Make an insert statement for the Sells table:
 		String insert = "INSERT INTO users(username, password, staff)"
-				+ "VALUES (?, ?, 'no')";
+				+ "VALUES (?, ?, 'yes')";
 		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 		PreparedStatement ps = con.prepareStatement(insert);
 
@@ -40,11 +40,11 @@
 		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
 		con.close();
 
-		out.print("Account Successfully Created! Welcome " + newUser + ".");
+		out.print("Customer Representative Account Successfully Created For " + newUser + ".");
 		
 	} catch (Exception ex) {
 		out.print(ex);
-		out.print("Account Creation DB Failed :()");
+		out.print("Customer Representative Account Creation DB Failed :()");
 	}
 %>
 </body>

@@ -22,7 +22,7 @@ Search for an item:
 			<option value="laptop">Laptop</option>
 			<option value="phone">Phone</option>
 			<option value="tablet">Tablet</option>
-		</select>&nbsp;<br> <input type="submit" value="submit">
+		</select>&nbsp;<br> <input type="submit" value="Search">
 	</form>
 <br>
 
@@ -53,6 +53,8 @@ Sell an item:
 	<input type="submit" value="List Item for Sale">
 	</form>
 <br>
+
+<input type="button" value="Logout" onclick="window.location='index.jsp'">
 
 </body>
 </html>

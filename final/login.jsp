@@ -26,7 +26,7 @@
 
 
 		//Make an insert statement for the Sells table:
-		String insert = "SELECT username, password FROM users WHERE username =? and password=?";
+		String insert = "SELECT username, password, staff FROM users WHERE username =? and password=?";
 		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 		PreparedStatement ps = con.prepareStatement(insert);
 
@@ -37,11 +37,19 @@
 		ResultSet result = ps.executeQuery();
 		
 		if(result.next()){
-            out.print("Successfully Logged In! Welcome back " + newUser + ".");
+           // out.print("Successfully Logged In! Welcome back " + newUser + ".");
             
-            request.setAttribute("username", newUser);
-            request.getRequestDispatcher("items.jsp").forward(request, response);
-            
+            if(newUser.equals("admin")){
+            	response.sendRedirect(request.getContextPath() + "/adminLanding.jsp");
+            }
+            else if((result.getString("staff")).equals("yes")){
+            	request.setAttribute("username", newUser);
+            	request.getRequestDispatcher("crLanding.jsp").forward(request, response);
+            }
+            else{
+            	request.setAttribute("username", newUser);
+            	request.getRequestDispatcher("items.jsp").forward(request, response);
+            }
             //response.sendRedirect(request.getContextPath() + "/items.jsp");
            	//RequestDispatcher rd = request.getRequestDispatcher("/items.jsp");
             //rd.forward(request, response);
