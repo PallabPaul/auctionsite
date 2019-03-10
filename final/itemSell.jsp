@@ -21,40 +21,36 @@
 		Statement stmt = con.createStatement();
 
 		//Get parameters from the HTML form at the HelloWorld.jsp
-		String newUser = request.getParameter("username");
-		String newPass = request.getParameter("password");
+		String newcategory = request.getParameter("category");
+		String newbrand = request.getParameter("brand");
+		String newyear = request.getParameter("year");
+		String newtype = request.getParameter("type");
+		String newusername = request.getParameter("username");
 
 
 		//Make an insert statement for the Sells table:
-		String insert = "SELECT username, password FROM users WHERE username =? and password=?";
+		String insert = "INSERT INTO items(username, category, brand, year, type)"
+				+ "VALUES (?, ?, ?, ?, ?)";
 		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 		PreparedStatement ps = con.prepareStatement(insert);
 
 		//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
-		ps.setString(1, newUser);
-		ps.setString(2, newPass);
+		ps.setString(1, newusername);
+		ps.setString(2, newcategory);
+		ps.setString(3, newbrand);
+		ps.setString(4, newyear);
+		ps.setString(5, newtype);
 		//Run the query against the DB
-		ResultSet result = ps.executeQuery();
-		
-		if(result.next()){
-            out.print("Successfully Logged In! Welcome back " + newUser + ".");
-            
-            request.setAttribute("username", newUser);
-            request.getRequestDispatcher("items.jsp").forward(request, response);
-            
-            //response.sendRedirect(request.getContextPath() + "/items.jsp");
-           	//RequestDispatcher rd = request.getRequestDispatcher("/items.jsp");
-            //rd.forward(request, response);
-        }else{
-            out.print("Sorry Username or Password is incorrect");
-        }
+		ps.executeUpdate();
 
 		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
 		con.close();
+
+		out.print("Item Successfully Listed!");
 		
 	} catch (Exception ex) {
 		out.print(ex);
-		out.print("Login DB Failed :()");
+		out.print(".\nItem Listing DB Failed :()");
 	}
 %>
 </body>
