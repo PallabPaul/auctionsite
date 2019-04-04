@@ -26,20 +26,30 @@
 		String newyear = request.getParameter("year");
 		String newtype = request.getParameter("type");
 		String newusername = request.getParameter("username");
-
-
+		
+		int idnum = -1;
+		
+		String str = "SELECT MAX(itemid) maxid FROM items";
+		ResultSet result = stmt.executeQuery(str);
+		
+		if(result.next()){
+		
+		idnum = result.getInt("maxid");
+		
+		}
 		//Make an insert statement for the Sells table:
-		String insert = "INSERT INTO items(username, category, brand, year, type)"
-				+ "VALUES (?, ?, ?, ?, ?)";
+		String insert = "INSERT INTO items(itemid, username, category, brand, year, type)"
+				+ "VALUES (?, ?, ?, ?, ?, ?)";
 		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 		PreparedStatement ps = con.prepareStatement(insert);
 
 		//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
-		ps.setString(1, newusername);
-		ps.setString(2, newcategory);
-		ps.setString(3, newbrand);
-		ps.setString(4, newyear);
-		ps.setString(5, newtype);
+		ps.setInt(1, idnum+1);
+		ps.setString(2, newusername);
+		ps.setString(3, newcategory);
+		ps.setString(4, newbrand);
+		ps.setString(5, newyear);
+		ps.setString(6, newtype);
 		//Run the query against the DB
 		ps.executeUpdate();
 

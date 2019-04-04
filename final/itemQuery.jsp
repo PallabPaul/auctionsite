@@ -34,6 +34,9 @@
 
 			//make a row
 			out.print("<tr>");
+			out.print("<td>");
+			out.print("Item ID");
+			out.print("</td>");
 			//make a column
 			out.print("<td>");
 			//print out column header
@@ -60,6 +63,9 @@
 				//make a row
 				out.print("<tr>");
 				//make a column
+				out.print("<td>");
+				out.print(result.getInt("itemid"));
+				out.print("</td>");
 				out.print("<td>");
 				//Print out current bar name:
 				out.print(result.getString("username"));
@@ -89,6 +95,59 @@
 		} catch (Exception e) {
 		}
 	%>
+
+<br>
+<br>
+<br>	
+Place Bid:
+<br>
+	<form method="post" action="bid.jsp">
+	<table>
+	<tr>    
+	<td>Item ID</td><td><input type="text" name="auctionid"></td>
+	</tr>
+	<tr>
+	<td>Amount to Bid</td><td><input type="text" name="bidamount"></td>
+	</tr>
+	<tr>
+	<td>Upper Limit</td><td><input type="text" name="upperlimit"></td>
+	</tr>
+	</table>
+	<input type="submit" value="Place Bid">
+	</form>
+<br>
+<br>
+History of Bids:
+<br>
+	<form method="post" action="bidHistory.jsp">
+	<table>
+	<tr>    
+	<td>Item ID</td><td><input type="text" name="auctionid"></td>
+	</tr>
+	</table>
+	<input type="submit" value="View History">
+	</form>
+<br>
+<br>
+Other User's Auctions:
+<br>
+	<form method="post" action="userHistory.jsp">
+	<table>
+	<tr>    
+	<td>Username</td><td><input type="text" name="username"></td>
+	</tr>
+	</table>
+	<input type="submit" value="View History">
+	</form>
+<br>
+
+<br>
+	<form method="post" action="similarBids.jsp">
+	<table>
+	</table>
+	<input type="submit" value="Similar Auctions From Last Month">
+	</form>
+<br>
 
 </body>
 </html>
