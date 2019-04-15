@@ -26,10 +26,25 @@
 		String newyear = request.getParameter("year");
 		String newtype = request.getParameter("type");
 		String newusername = request.getParameter("username");
+		String startprice = request.getParameter("startprice");
+		String reserve = request.getParameter("reserve");
+		String increment = request.getParameter("increment");
+		String enddate = request.getParameter("enddate");
+		
+		double dres = 0.00;
+		
+		if(reserve.equals("optional") == false){
+			
+			dres = Double.parseDouble(reserve);
+			
+		}
+		
+		double dsp = Double.parseDouble(startprice);
+		double dinc = Double.parseDouble(increment);
 		
 		int idnum = -1;
 		
-		String str = "SELECT MAX(itemid) maxid FROM items";
+		String str = "SELECT MAX(auctionid) maxid FROM items";
 		ResultSet result = stmt.executeQuery(str);
 		
 		if(result.next()){
@@ -38,7 +53,7 @@
 		
 		}
 		//Make an insert statement for the Sells table:
-		String insert = "INSERT INTO items(itemid, username, category, brand, year, type)"
+		String insert = "INSERT INTO items(auctionid, username, category, brand, year, type)"
 				+ "VALUES (?, ?, ?, ?, ?, ?)";
 		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 		PreparedStatement ps = con.prepareStatement(insert);
@@ -52,7 +67,34 @@
 		ps.setString(6, newtype);
 		//Run the query against the DB
 		ps.executeUpdate();
-
+		
+		String insert2 = "INSERT INTO auctions(username, auctionid, startPrice, curPrice, endPrice, reserve, increment, startTime, endTime, currBidder, winner)"
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
+		PreparedStatement ps2 = con.prepareStatement(insert2);
+		
+		ps2.setString(1, newusername);
+		ps2.setInt(2, idnum+1);
+		ps2.setDouble(3, dsp);
+		ps2.setDouble(4, dsp);
+		ps2.setDouble(5, 0.00);
+		
+		if(reserve.equals("optional") == false){
+			ps2.setDouble(6, dres);
+		}
+		else{
+			ps2.setDouble(6, 0.00);
+		}
+		ps2.setDouble(7, dinc);
+		ps2.setTimestamp(8, java.sql.Timestamp.from(java.time.Instant.now()));
+		ps2.setTimestamp(9, java.sql.Timestamp.valueOf(enddate));
+		ps2.setString(10, "no bid yet");
+		ps2.setString(11, "no winner yet");
+		
+		//java.sql.Timestamp.valueOf("2007-09-23 10:10:10.0");
+		
+		ps2.executeUpdate();
+		
 		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
 		con.close();
 

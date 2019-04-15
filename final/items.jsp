@@ -19,10 +19,18 @@ Search for an item:
 <br>
 	<form method="post" action="itemQuery.jsp">
 		<select name="itemcat" size=1>
+			<option value="all">All</option>
 			<option value="laptop">Laptop</option>
 			<option value="phone">Phone</option>
 			<option value="tablet">Tablet</option>
-		</select>&nbsp;<br> <input type="submit" value="Search">
+	
+		</select>&nbsp;<br> 
+		
+	
+		<input type = "hidden" name = "username" value = <%= username%>>
+	
+		
+		<input type="submit" value="Search">
 	</form>
 <br>
 
@@ -47,6 +55,18 @@ Sell an item:
 	<td>Item Type</td><td><input type="text" name="type"></td>
 	</tr>
 	<tr>
+	<td>Start Price</td><td><input type="text" name="startprice"></td>
+	</tr>
+	<tr>
+	<td>Secret Reserve Price</td><td><input type="text" name="reserve" value = "optional"> Leave as "optional" if you don't want to set a reserve price.</td>
+	</tr>
+	<tr>
+	<td>Bid Increment</td><td><input type="text" name="increment"></td>
+	</tr>
+	<tr>
+	<td>End date (2019-01-11 10:10:10)</td><td><input type="text" name="enddate"></td>
+	</tr>
+	<tr>
 	<td><input type = "hidden" name = "username" value = <%= username%>></td>
 	</tr>
 	</table>
@@ -55,6 +75,13 @@ Sell an item:
 <br>
 
 <input type="button" value="Logout" onclick="window.location='index.jsp'">
+<br>
+<br>
+<br>
+	<form method="post" action="delAcc.jsp">
+	<input type = "hidden" name = "username" value = <%= username%>>
+	<input type="submit" value="Delete Account">
+	</form>
 
 </body>
 </html>
