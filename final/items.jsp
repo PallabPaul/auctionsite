@@ -12,9 +12,11 @@
 
 <%String username = (String)request.getAttribute("username"); %>
 
+<%username = (String)request.getParameter("username"); %>
 <body>
 <h1>Hi <%= username%>. Buy or Sell </h1>
-Search for an item:
+
+<strong><font size ="5">Basic Search</font></strong>
 <br>
 <br>
 	<form method="post" action="itemQuery.jsp">
@@ -30,12 +32,29 @@ Search for an item:
 		<input type = "hidden" name = "username" value = <%= username%>>
 	
 		
-		<input type="submit" value="Search">
+		<input type="submit" value="Basic Search">
 	</form>
 <br>
 
+<strong><font size ="5">Advanced Search</font></strong>
 <br>
-Sell an item:
+<br>
+	<form method="post" action="laptopSearch.jsp">
+
+		<input type = "hidden" name = "username" value = <%= username%>>
+
+		<input type="submit" value="Laptop">
+
+		<input type="submit" value="Phone" formaction="phoneSearch.jsp">
+
+		<input type="submit" value="Tablet" formaction="tabletSearch.jsp">		
+
+	</form>
+
+<br>
+
+<br>
+<strong><font size ="5">Sell an Item</font></strong>
 <br>
 	<form method="post" action="itemSell.jsp">
 	<table>
@@ -44,15 +63,6 @@ Sell an item:
 			<option value="laptop">Laptop</option>
 			<option value="phone">Phone</option>
 			<option value="tablet">Tablet</option></select></td>
-	</tr>
-	<tr>
-	<td>Item Brand</td><td><input type="text" name="brand"></td>
-	</tr>
-	<tr>    
-	<td>Item Year</td><td><input type="text" name="year"></td>
-	</tr>
-	<tr>
-	<td>Item Type</td><td><input type="text" name="type"></td>
 	</tr>
 	<tr>
 	<td>Start Price</td><td><input type="text" name="startprice"></td>
@@ -64,7 +74,33 @@ Sell an item:
 	<td>Bid Increment</td><td><input type="text" name="increment"></td>
 	</tr>
 	<tr>
-	<td>End date (2019-01-11 10:10:10)</td><td><input type="text" name="enddate"></td>
+	<td>End date (yyyy-mm-dd hh:mm:ss)</td><td><input type="text" name="enddate"> Time will be automatically converted to UTC time which is 4 hours ahead of EST.</td>
+	</tr>
+	<tr>
+	<td>Item Brand</td><td><input type="text" name="brand"></td>
+	</tr>
+	<tr>    
+	<td>Item Year</td><td><input type="text" name="year"></td>
+	</tr>
+	<tr>
+	<td>Item Type</td><td><input type="text" name="type"></td>
+	</tr>
+	<tr>
+
+	<td>Laptops, input ram size</td><td><input type="text" value="0" name="ramsize"> If you are not selling a Laptop leave as is.</td>
+
+	</tr>
+	
+	<tr>
+
+	<td>Phones, input color</td><td><input type="text" value="N/A" name="phonecolor"> If you are not selling a Phone leave as is.</td>
+
+	</tr>
+
+	<tr>
+
+	<td>Tablets, input screen size (inches)</td><td><input type="text" value="0" name="screensize"> If you are not selling a Table leave as is.</td>
+
 	</tr>
 	<tr>
 	<td><input type = "hidden" name = "username" value = <%= username%>></td>
@@ -73,6 +109,24 @@ Sell an item:
 	<input type="submit" value="List Item for Sale">
 	</form>
 <br>
+
+<form method="post" action="alerts.jsp">
+<table>
+<td>
+<input type = "hidden" name = "username" value = <%= username%>>
+</td>
+</table>
+<input type="submit" value="Alerts" onclick="window.location='alerts.jsp'">
+</form>
+
+<form method="post" action="forumPage.jsp">
+<table>
+<tr>
+<td><input type = "hidden" name = "username" value = <%= username%>></td>
+</tr>
+</table>
+<input type="submit" value="Forum">
+</form>
 
 <input type="button" value="Logout" onclick="window.location='index.jsp'">
 <br>

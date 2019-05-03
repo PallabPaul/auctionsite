@@ -119,6 +119,10 @@
 		
 		ps2.executeUpdate();
 		
+		//String bidstring = "INSERT INTO outbid (outbidusername, auctionid) VALUES ('" + prevbidder+ "', '" + auctionid +"')";
+		//PreparedStatement psx = con.prepareStatement(bidstring);
+		//psx.executeUpdate();
+				
 		String str2 = "SELECT * FROM bidhistory WHERE bidder = '" + prevbidder + "' and upperLimit != '0.00' and auctionid = '" + auctionid + "' ORDER BY upperLimit DESC";
 		//WHERE category = " + entity;
 		//Run the query against the database.
@@ -167,6 +171,10 @@
 						
 						ps4.executeUpdate();
 						
+						String bidstring2 = "INSERT INTO outbid (outbidusername, auctionid) VALUES ('" + bidder+ "', '" + auctionid +"')";
+						PreparedStatement psx2 = con.prepareStatement(bidstring2);
+						psx2.executeUpdate();
+						
 					}
 					else{
 						out.print("Bid Successfully Placed!");
@@ -194,6 +202,10 @@
 							//Run the query against the DB
 							ps5.executeUpdate();
 							
+							String bidstring3 = "INSERT INTO outbid (outbidusername, auctionid) VALUES ('" + bidder+ "', '" + auctionid +"')";
+							PreparedStatement psx3 = con.prepareStatement(bidstring3);
+							psx3.executeUpdate();
+							
 							String insert3 = "INSERT INTO bidhistory(bidder, auctionid, timeofbid, currentprice, priceofbid, upperlimit)"
 									+ "VALUES (?, ?, ?, ?, ?, ?)";
 							//Create a Prepared SQL statement allowing you to introduce the parameters of the query
@@ -209,6 +221,10 @@
 							
 							//Run the query against the DB
 							ps3.executeUpdate();
+							
+							String bidstring4 = "INSERT INTO outbid (outbidusername, auctionid) VALUES ('" + prevbidder+ "', '" + auctionid +"')";
+							PreparedStatement psx4 = con.prepareStatement(bidstring4);
+							psx4.executeUpdate();
 							
 							String insert4 = "UPDATE auctions SET curPrice =? , currBidder =? WHERE auctionid =?";
 							
@@ -250,6 +266,10 @@
 							
 							ps4.executeUpdate();
 							
+							String bidstring5 = "INSERT INTO outbid (outbidusername, auctionid) VALUES ('" + bidder+ "', '" + auctionid +"')";
+							PreparedStatement psx5 = con.prepareStatement(bidstring5);
+							psx5.executeUpdate();
+							
 						}				
 					}else{
 						/////////////////////////
@@ -272,6 +292,10 @@
 							//Run the query against the DB
 							ps5.executeUpdate();
 							
+							String bidstring6 = "INSERT INTO outbid (outbidusername, auctionid) VALUES ('" + prevbidder+ "', '" + auctionid +"')";
+							PreparedStatement psx6 = con.prepareStatement(bidstring6);
+							psx6.executeUpdate();
+							
 							String insert3 = "INSERT INTO bidhistory(bidder, auctionid, timeofbid, currentprice, priceofbid, upperlimit)"
 									+ "VALUES (?, ?, ?, ?, ?, ?)";
 							//Create a Prepared SQL statement allowing you to introduce the parameters of the query
@@ -287,6 +311,10 @@
 							
 							//Run the query against the DB
 							ps3.executeUpdate();
+							
+							String bidstring7 = "INSERT INTO outbid (outbidusername, auctionid) VALUES ('" + bidder+ "', '" + auctionid +"')";
+							PreparedStatement psx7 = con.prepareStatement(bidstring7);
+							psx7.executeUpdate();
 							
 							String insert4 = "UPDATE auctions SET curPrice =? , currBidder =? WHERE auctionid =?";
 							
@@ -318,6 +346,10 @@
 							//Run the query against the DB
 							ps5.executeUpdate();
 							
+							String bidstring8 = "INSERT INTO outbid (outbidusername, auctionid) VALUES ('" + prevbidder+ "', '" + auctionid +"')";
+							PreparedStatement psx8 = con.prepareStatement(bidstring8);
+							psx8.executeUpdate();
+							
 							String insert4 = "UPDATE auctions SET curPrice =? , currBidder =? WHERE auctionid =?";
 							
 							PreparedStatement ps4 = con.prepareStatement(insert4);
@@ -337,7 +369,7 @@
 			
 				double ul = result2.getDouble("upperLimit");
 		
-				out.print("upper limit to compete with: " + ul);
+				//out.print("upper limit to compete with: " + ul);
 			}
 		}
 		else{

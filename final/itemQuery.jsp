@@ -83,14 +83,20 @@
 			
 			String str = "";
 			
+			Timestamp ts = new Timestamp(System.currentTimeMillis());
+			java.util.Date date = new java.util.Date();
+			date.setTime(ts.getTime());
+			String formattedDate = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+			
 			if(entity.equals("all") == true){
 				
-				str = "SELECT * FROM items i, auctions a WHERE a.auctionid = i.auctionid";
+				str = "SELECT * FROM items i, auctions a WHERE a.auctionid = i.auctionid and a.endTime > '" + formattedDate + "'";
 				
 			}
 			else{
 			//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
-				str = "SELECT * FROM items i, auctions a WHERE a.auctionid = i.auctionid and i.category = '" + entity + "'";
+				str = "SELECT * FROM items i, auctions a WHERE a.auctionid = i.auctionid and i.category = '" + entity + "' and a.endTime > '" + formattedDate + "'";
+				//a.winner = 'no winner yet'";
 			
 			}
 			//WHERE category = " + entity;
@@ -243,10 +249,13 @@ Other User's Auctions:
 <br>
 
 <br>
+Similar Auctions From Last Month:
+<br> 
 	<form method="post" action="similarBids.jsp">
 	<table>
+	<td>Auction ID</td><td><input type="text" name="auctionid"></td>
 	</table>
-	<input type="submit" value="Similar Auctions From Last Month">
+	<input type="submit" value="View Similar Auctions">
 	</form>
 <br>
 <br>
@@ -256,7 +265,7 @@ Delete Auction:
 	<form method="post" action="delAuc.jsp">
 	<table>
 	<tr>    
-	<td>Auction ID</td><td><input type="text" name="auctionid" value = "in progress"></td>
+	<td>Auction ID</td><td><input type="text" name="auctionid"></td>
 	</tr>
 	<tr>
 	<td><input type = "hidden" name = "username" value = <%=newusername%>></td>
@@ -265,23 +274,6 @@ Delete Auction:
 	<input type="submit" value="Delete Auction">
 	</form>
 <br>
-<br>
-<br>
-Delete Latest Bid:
-<br>
-	<form method="post" action="delBid.jsp">
-	<table>
-	<tr>    
-	<td>Auction ID</td><td><input type="text" name="auctionid" value = "in progress"></td>
-	</tr>
-	<tr>
-	<td><input type = "hidden" name = "username" value = <%=newusername%>></td>
-	</tr>
-	</table>
-	<input type="submit" value="Delete Latest Bid">
-	</form>
-<br>
-
 
 </body>
 </html>

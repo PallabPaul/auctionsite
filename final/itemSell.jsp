@@ -30,6 +30,30 @@
 		String reserve = request.getParameter("reserve");
 		String increment = request.getParameter("increment");
 		String enddate = request.getParameter("enddate");
+		int newramsize = Integer.parseInt(request.getParameter("ramsize"));
+		int newscreensize = Integer.parseInt(request.getParameter("screensize"));
+		String newphonecolor = request.getParameter("phonecolor");
+		
+		String specType = "";
+		
+		if(newcategory.equals("laptop")){
+			
+			specType = "ramsize";
+			
+		}
+		else if(newcategory.equals("phone")){
+			
+			specType = "phonecolor";
+			
+		}
+		else if(newcategory.equals("tablet")){
+			
+			specType = "screensize";
+			
+		}
+
+		
+		//Timestamp ts =  java.sql.Timestamp.valueOf(enddate + (4*60*60*1000));
 		
 		double dres = 0.00;
 		
@@ -53,18 +77,36 @@
 		
 		}
 		//Make an insert statement for the Sells table:
-		String insert = "INSERT INTO items(auctionid, username, category, brand, year, type)"
-				+ "VALUES (?, ?, ?, ?, ?, ?)";
+		String insert = "INSERT INTO items(auctionid, username, category, brand, year, type, " + specType + ")"
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
 		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 		PreparedStatement ps = con.prepareStatement(insert);
 
 		//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
+		//ps.setString(1, specType);
 		ps.setInt(1, idnum+1);
 		ps.setString(2, newusername);
 		ps.setString(3, newcategory);
 		ps.setString(4, newbrand);
 		ps.setString(5, newyear);
 		ps.setString(6, newtype);
+		
+		if(newcategory.equals("laptop")){
+			
+			ps.setInt(7, newramsize);
+			
+		}
+		else if(newcategory.equals("phone")){
+			
+			ps.setString(7, newphonecolor);
+			
+		}
+		else if(newcategory.equals("tablet")){
+			
+			ps.setInt(7, newscreensize);
+			
+		}
+		
 		//Run the query against the DB
 		ps.executeUpdate();
 		
@@ -87,7 +129,7 @@
 		}
 		ps2.setDouble(7, dinc);
 		ps2.setTimestamp(8, java.sql.Timestamp.from(java.time.Instant.now()));
-		ps2.setTimestamp(9, java.sql.Timestamp.valueOf(enddate));
+		ps2.setTimestamp(9, java.sql.Timestamp.valueOf(enddate + (14400)));
 		ps2.setString(10, "no bid yet");
 		ps2.setString(11, "no winner yet");
 		
